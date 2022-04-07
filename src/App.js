@@ -40,6 +40,10 @@ const App = () => {
       console.log('error creating todo:', err)
     }
   }
+  function testme(){
+	  console.log("testme");
+  }
+  testme()
 
   return (
     <div style={styles.container}>
