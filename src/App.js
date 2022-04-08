@@ -61,13 +61,15 @@ const App = () => {
         value={formState.description}
         placeholder="Description"
       />
-      <button style={styles.button} onClick={addTodo}>Create Something</button>
+      <Button onClick={addTodo}>Create Something</Button>
       {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} style={styles.todo}>
             <p style={styles.todoName}>{todo.name}</p>
             <p style={styles.todoDescription}>{todo.description}</p>
 			<p style={styles.todoDescription}>{todo.id}</p>
+			<Button>Edit Me</Button>
+			<Button>Delete Me</Button>
           </div>
         ))
       }
