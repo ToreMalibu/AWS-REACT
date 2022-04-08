@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations'
 import { listTodos } from './graphql/queries'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
@@ -66,6 +67,7 @@ const App = () => {
           <div key={todo.id ? todo.id : index} style={styles.todo}>
             <p style={styles.todoName}>{todo.name}</p>
             <p style={styles.todoDescription}>{todo.description}</p>
+			<p style={styles.todoDescription}>{todo.id}</p>
           </div>
         ))
       }
