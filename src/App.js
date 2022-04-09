@@ -68,7 +68,7 @@ const App = () => {
             <p style={styles.todoName}>{todo.name}</p>
             <p style={styles.todoDescription}>{todo.description}</p>
 			<p style={styles.todoDescription}>{todo.id}</p>
-			<Button>Edit Me</Button>
+			<Button>Update Me</Button>
 			<Button>Delete Me</Button>
           </div>
         ))
