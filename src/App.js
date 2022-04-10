@@ -28,6 +28,7 @@ const App = () => {
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
+	//console.log({ ...formState});
   }
 
   async function fetchTodos() {
@@ -93,22 +94,29 @@ const App = () => {
   testme()
 
   return (
+  <>
+	<div id="nav" className="container-fluid">
+		<h2>Container Management</h2>
+		<p>Edit your Titles and Content Below</p>
+		<p>Click the Preview Button to View Your Changes on the Live Site</p>
+		<Button id="preView">PREVIEW</Button>
+	</div>
     <div style={styles.container}>
-      <h2>Create Things</h2>
+      <h2 id="create-h2">Create Things</h2>
 	  <h3 id="instruct">~</h3>
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
         value={formState.name}
-        placeholder="Name"
+        placeholder="Title"
       />
       <input
         onChange={event => setInput('description', event.target.value)}
         style={styles.input}
         value={formState.description}
-        placeholder="Description"
+        placeholder="Content"
       />
-      <Button id="main-btn" onClick={addTodo}>Create Something</Button>
+      <Button id="main-btn" className="btn btn-success" onClick={addTodo}>Create Something</Button>
       <Container>
 			  <Row xs={1} md={4} className="g-4">
 			  {
@@ -128,14 +136,14 @@ const App = () => {
 			  }
 			  </Row>
 			</Container>
-    </div>
+    </div>< />
   )
 }
 
 const styles = {
   //container: { width: "1500px", margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'left', padding: 20 },
   todo: {  marginBottom: 15 },
-  input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
+  input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18, marginLeft: 5, marginRight: 5 },
   todoName: { fontSize: 20, fontWeight: 'bold' },
   todoDescription: { marginBottom: 10 },
   Button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 30px' }
