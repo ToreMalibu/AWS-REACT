@@ -49,6 +49,7 @@ const App = () => {
       setTodos([...todos, todo])
       setFormState(initialState)
       await API.graphql(graphqlOperation(createTodo, {input: todo}))
+	  fetchTodos();
     } catch (err) {
       console.log('error creating todo:', err)
     }
@@ -107,29 +108,37 @@ const App = () => {
         value={formState.description}
         placeholder="Description"
       />
-      <Button onClick={addTodo}>Create Something</Button>
-      {
-        todos.map((todo, index) => (
-          <div key={todo.id ? todo.id : index} style={styles.todo}>
-            <p style={styles.todoName}>{todo.name}</p>
-            <p style={styles.todoDescription}>{todo.description}</p>
-			<p style={styles.todoDescription}>{todo.id}</p>
-			<Button id={todo.id} onClick={() => updateATodo(todo.id, todo.name, todo.description)}>Update Me</Button>
-			<Button id={todo.id} onClick={() => deleteATodo(todo.id)}>Delete Me</Button>
-          </div>
-        ))
-      }
+      <Button id="main-btn" onClick={addTodo}>Create Something</Button>
+      <Container>
+			  <Row xs={1} md={4} className="g-4">
+			  {
+				todos.map((todo, index) => (
+				  <Col key={todo.name ? todo.name : index}>
+					<Card className="crudBox">
+						<Card.Body>
+							<Card.Title>{todo.name}</Card.Title>
+							<Card.Text>{todo.description}</Card.Text>
+							<Card.Text className="hide">{todo.id}</Card.Text>
+							<Button id={todo.id} onClick={() => deleteATodo(todo.id)}>Delete Me</Button>
+							<Button id={todo.id} onClick={() => updateATodo(todo.id, todo.name, todo.description)}>Update Me</Button>
+						</Card.Body>
+					</Card>
+				</Col>
+				))
+			  }
+			  </Row>
+			</Container>
     </div>
   )
 }
 
 const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
+  //container: { width: "1500px", margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'left', padding: 20 },
   todo: {  marginBottom: 15 },
   input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
   todoName: { fontSize: 20, fontWeight: 'bold' },
-  todoDescription: { marginBottom: 0 },
-  button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
+  todoDescription: { marginBottom: 10 },
+  Button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 30px' }
 }
 
 export default App
