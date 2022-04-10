@@ -1,12 +1,20 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
+import { createTodo } from './graphql/mutations';
+import * as mutations from './graphql/mutations';
+import { listTodos } from './graphql/queries';
+import * as queries from './graphql/queries';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
+
+let updating = false;
 
 const initialState = { name: '', description: '' }
 
@@ -31,6 +39,10 @@ const App = () => {
   }
 
   async function addTodo() {
+	if(updating === true){
+		updating = false;
+		switchBack();
+	}  
     try {
       if (!formState.name || !formState.description) return
       const todo = { ...formState }
@@ -41,6 +53,39 @@ const App = () => {
       console.log('error creating todo:', err)
     }
   }
+  
+  async function deleteATodo(idNum) {  
+    try {
+		const todoDetails = {
+			id: idNum,
+		};
+	  const deletedTodo = await API.graphql({ query: mutations.deleteTodo, variables: {input: todoDetails}});
+	  fetchTodos();
+    } catch (err) {
+      console.log('error deleting todo:', err)
+    }
+  }
+  
+  
+    const switchBack = function(){
+	document.getElementById("main-btn").innerHTML = "Create A Todo";
+	document.getElementById("instruct").innerHTML = "";
+	fetchTodos();
+  }
+  
+  
+  
+  const updateATodo = function (theId, newName, newDescription) {
+	updating = true;
+	document.getElementById("main-btn").innerHTML = "UPDATE";
+	document.getElementById("instruct").innerHTML = "Here's what you're updating in the boxes below <br />Name : "+newName+"<br /> Description : "+newDescription;
+	deleteATodo(theId);
+	fetchTodos();
+  }
+  
+  
+  
+  
   function testme(){
 	  console.log("testme");
   }
@@ -49,6 +94,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       <h2>Create Things</h2>
+	  <h3 id="instruct">~</h3>
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
@@ -68,8 +114,8 @@ const App = () => {
             <p style={styles.todoName}>{todo.name}</p>
             <p style={styles.todoDescription}>{todo.description}</p>
 			<p style={styles.todoDescription}>{todo.id}</p>
-			<Button>Update Me</Button>
-			<Button>Delete Me</Button>
+			<Button id={todo.id} onClick={() => updateATodo(todo.id, todo.name, todo.description)}>Update Me</Button>
+			<Button id={todo.id} onClick={() => deleteATodo(todo.id)}>Delete Me</Button>
           </div>
         ))
       }
