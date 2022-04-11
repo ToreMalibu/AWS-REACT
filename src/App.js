@@ -1,5 +1,8 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
+import ResultPage from './ResultPage.js';
+import {root, container, goToCMS, goToResult}  from './index.js';
+import { createRoot } from 'react-dom/client';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createTodo } from './graphql/mutations';
 import * as mutations from './graphql/mutations';
@@ -13,6 +16,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
+
 
 let updating = false;
 
@@ -85,7 +89,10 @@ const App = () => {
 	fetchTodos();
   }
   
-  
+  const goResult = function(){
+	  console.log("unmount feature")
+	  goToResult();
+  }
   
   
   function testme(){
@@ -99,7 +106,7 @@ const App = () => {
 		<h2>Container Management</h2>
 		<p>Edit your Titles and Content Below</p>
 		<p>Click the Preview Button to View Your Changes on the Live Site</p>
-		<Button id="preView">PREVIEW</Button>
+		<Button id="preView" onClick={goResult}>PREVIEW</Button>
 	</div>
     <div style={styles.container}>
       <h2 id="create-h2">Create Things</h2>
