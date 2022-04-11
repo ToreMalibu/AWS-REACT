@@ -90,7 +90,6 @@ const App = () => {
   }
   
   const goResult = function(){
-	  console.log("unmount feature")
 	  goToResult();
   }
   
@@ -104,7 +103,7 @@ const App = () => {
   <>
 	<div id="nav" className="container-fluid">
 		<h2>Container Management</h2>
-		<p>Edit your Titles and Content Below</p>
+		<p>Create, Edit an or Delete your Titles and Content Below</p>
 		<p>Click the Preview Button to View Your Changes on the Live Site</p>
 		<Button id="preView" onClick={goResult}>PREVIEW</Button>
 	</div>
@@ -130,6 +129,7 @@ const App = () => {
 				todos.map((todo, index) => (
 				  <Col key={todo.name ? todo.name : index}>
 					<Card className="crudBox">
+						<img className="card-img-top" src="./default.jpg" alt="Card image" />
 						<Card.Body>
 							<Card.Title>{todo.name}</Card.Title>
 							<Card.Text>{todo.description}</Card.Text>

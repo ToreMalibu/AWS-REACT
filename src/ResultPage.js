@@ -54,6 +54,7 @@ const ResultPage = () => {
 							todos.map((todo, index) => (
 								<Col key={todo.name ? todo.name : index}>
 									<Card className="crudBox">
+										<img className="card-img-top" src="./default.jpg" alt="Card image" />
 										<Card.Body>
 											<Card.Title>{todo.name}</Card.Title>
 											<Card.Text>{todo.description}</Card.Text>
