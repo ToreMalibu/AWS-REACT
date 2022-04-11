@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {root, container, goToCMS, goToResult}  from './index.js';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations';
-import * as mutations from './graphql/mutations';
 import { listTodos } from './graphql/queries';
 import * as queries from './graphql/queries';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,8 +9,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
 
 
 
@@ -57,8 +53,8 @@ const ResultPage = () => {
 										<img className="card-img-top" src="./default.jpg" alt="Card image" />
 										<Card.Body>
 											<Card.Title>{todo.name}</Card.Title>
-											<Card.Text>{todo.description}</Card.Text>
-											<Card.Text><Button>Read More</Button></Card.Text>
+											<Card.Text>{todo.description.substring(0, 5)+"..."}</Card.Text>
+											<Card.Footer><Button>Read More</Button></Card.Footer>
 											<Card.Text className="hide">{todo.id}</Card.Text>
 										</Card.Body>
 									</Card>
