@@ -98,7 +98,12 @@ const App = () => {
 	  console.log("testme");
   }
   testme()
-
+  /*
+	function createMarkup(desc) {
+		console.log(desc);
+		//return {__html: desc}
+	}
+*/
   return (
   <>
 	<div id="nav" className="container-fluid">
