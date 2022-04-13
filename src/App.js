@@ -98,12 +98,13 @@ const App = () => {
 	  console.log("testme");
   }
   testme()
-  /*
+ 
 	function createMarkup(desc) {
-		console.log(desc);
-		//return {__html: desc}
+		if(!desc){return}
+		//console.log(desc);
+		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>').substring(0, 100)+"..."}
 	}
-*/
+
   return (
   <>
 	<div id="nav" className="container-fluid">
@@ -115,19 +116,25 @@ const App = () => {
     <div style={styles.container}>
       <h2 id="create-h2">Create Things</h2>
 	  <h3 id="instruct">~</h3>
-      <input
+	<p id="input-cont">  
+      <textarea
+	    rows="4"
+		cols="20"
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
         value={formState.name}
         placeholder="Title"
       />
-      <input
+      <textarea
+	    rows="4"
+		cols="50"
         onChange={event => setInput('description', event.target.value)}
         style={styles.input}
         value={formState.description}
         placeholder="Content"
       />
       <Button id="main-btn" className="btn btn-success" onClick={addTodo}>Create Something</Button>
+	 </p> 
       <Container>
 			  <Row xs={1} md={4} className="g-4">
 			  {
@@ -137,7 +144,8 @@ const App = () => {
 						<img className="card-img-top" src="./default.jpg" alt="Card image" />
 						<Card.Body>
 							<Card.Title>{todo.name}</Card.Title>
-							<Card.Text>{todo.description}</Card.Text>
+							
+							<div dangerouslySetInnerHTML={createMarkup(todo.description)} />
 							<Card.Text className="hide">{todo.id}</Card.Text>
 							<Button id={todo.id} onClick={() => deleteATodo(todo.id)}>Delete Me</Button>
 							<Button id={todo.id} onClick={() => updateATodo(todo.id, todo.name, todo.description)}>Update Me</Button>

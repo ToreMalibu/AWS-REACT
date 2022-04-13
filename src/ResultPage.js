@@ -30,9 +30,24 @@ const ResultPage = () => {
 	}
 	
 	function testRenders(){
-	  console.log("testRenders");
+	  //console.log("testRenders");
   }
   testRenders()
+  
+  	function createMarkup(desc) {
+		if(!desc){return}
+		//console.log(desc);
+		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>').substring(0, 100)+"..."}
+	}
+	
+	function goToArticle(title, content){
+		console.log("Got HERE")
+		if(!title){return}
+		console.log("TITLE "+title)
+		console.log("CONTENT "+content)
+	}
+  
+  
 
 	return (
 	<>
@@ -53,8 +68,8 @@ const ResultPage = () => {
 										<img className="card-img-top" src="./default.jpg" alt="Card image" />
 										<Card.Body>
 											<Card.Title>{todo.name}</Card.Title>
-											<Card.Text>{todo.description.substring(0, 5)+"..."}</Card.Text>
-											<Card.Footer><Button>Read More</Button></Card.Footer>
+											<div dangerouslySetInnerHTML={createMarkup(todo.description)} />
+											<Card.Footer><Button id={todo.id} onClick={() => goToArticle(todo.name, todo.description)}>Read More</Button></Card.Footer>
 											<Card.Text className="hide">{todo.id}</Card.Text>
 										</Card.Body>
 									</Card>
