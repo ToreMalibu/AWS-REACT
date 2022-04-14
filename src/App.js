@@ -104,6 +104,11 @@ const App = () => {
 		//console.log(desc);
 		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>').substring(0, 100)+"..."}
 	}
+	
+	function formatDate(updatedAt){
+		var date = new Date(updatedAt);
+		return(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
+	}
 
   return (
   <>
@@ -144,9 +149,10 @@ const App = () => {
 						<img className="card-img-top" src="./default.jpg" alt="Card image" />
 						<Card.Body>
 							<Card.Title>{todo.name}</Card.Title>
-							
+							<Card.Text className="small-date">{formatDate(todo.updatedAt)}</Card.Text>
 							<div dangerouslySetInnerHTML={createMarkup(todo.description)} />
 							<Card.Text className="hide">{todo.id}</Card.Text>
+							
 							<Button id={todo.id} onClick={() => deleteATodo(todo.id)}>Delete Me</Button>
 							<Button id={todo.id} onClick={() => updateATodo(todo.id, todo.name, todo.description)}>Update Me</Button>
 						</Card.Body>

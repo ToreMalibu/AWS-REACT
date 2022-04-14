@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {root, container, goToCMS, goToResult}  from './index.js';
+import {root, container, goToCMS, goToResult, goArticle, buildPage}  from './index.js';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { listTodos } from './graphql/queries';
 import * as queries from './graphql/queries';
@@ -40,12 +40,22 @@ const ResultPage = () => {
 		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>').substring(0, 100)+"..."}
 	}
 	
-	function goToArticle(title, content){
-		console.log("Got HERE")
-		if(!title){return}
-		console.log("TITLE "+title)
-		console.log("CONTENT "+content)
+	function formatDate(updatedAt){
+		var date = new Date(updatedAt);
+		return(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
 	}
+
+	function GoArticle(title, theDate, content){
+		//console.log("Got HERE")
+		if(!content){return}
+		//console.log("TITLE "+title)
+		//console.log("DATE "+formatDate(theDate))
+		//console.log("CONTENT "+content)
+		buildPage(title, formatDate(theDate), content)
+		console.log(content);
+	}
+	
+	
   
   
 
@@ -68,8 +78,9 @@ const ResultPage = () => {
 										<img className="card-img-top" src="./default.jpg" alt="Card image" />
 										<Card.Body>
 											<Card.Title>{todo.name}</Card.Title>
+											<Card.Text className="small-date">{formatDate(todo.updatedAt)}</Card.Text>
 											<div dangerouslySetInnerHTML={createMarkup(todo.description)} />
-											<Card.Footer><Button id={todo.id} onClick={() => goToArticle(todo.name, todo.description)}>Read More</Button></Card.Footer>
+											<Card.Footer><Button id={todo.id} onClick={() => GoArticle(todo.name, todo.updatedAt, todo.description)}>Read More</Button></Card.Footer>
 											<Card.Text className="hide">{todo.id}</Card.Text>
 										</Card.Body>
 									</Card>
