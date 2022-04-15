@@ -41,6 +41,7 @@ const ResultPage = () => {
 
 	function GoArticle(title, theDate, content){
 		if(!content){return}
+		window.scrollTo(0, 0);
 		buildPage(title, formatDate(theDate), content)
 	}
 	

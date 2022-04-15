@@ -35,10 +35,11 @@ export const buildPage = function(t, d, c){
 		  return(
 			<>
 				<div id="nav" className="container-fluid">
-					<h2>Container Management Page Built!</h2>
+					<h2>Container Management Page Built! &#10004;</h2>
 					<p>This would be replaced by a navigation area.</p>
 					<p>Click the Back to Container Management Button to Return to Your Container Management Page</p>
 					<Button id="preView" onClick={goToCMS}>Back to Container Management</Button>
+					<Button id="CMS" onClick={goToResult}>Back to the Preview Page</Button>
 				</div>
 				<h2 id="create-h2">Below is the Page You Have Created</h2>
 				<div id="page" className="container">
