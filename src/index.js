@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from 'react-bootstrap/Button';
 import './index.css';
 import ResultPage from './ResultPage.js';
 import GoToArticle from './GoArticle.js';
@@ -9,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
 Amplify.configure(config);
+
 
 export const container = document.getElementById('root');
 export const root = createRoot(container);
@@ -25,14 +27,25 @@ export const goToResult = function(){
 
 
 export const buildPage = function(t, d, c){
-	
+	function createMarkup(desc) {
+		if(!desc){return}
+		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>')}
+	}
 	const Fraf = function(){
 		  return(
 			<>
-				<h1 id="title">{t}</h1>
-				<h5 id="theDate">{d}</h5>
-				<p id="content">{c}</p>
-				
+				<div id="nav" className="container-fluid">
+					<h2>Container Management Page Built!</h2>
+					<p>This would be replaced by a navigation area.</p>
+					<p>Click the Back to Container Management Button to Return to Your Container Management Page</p>
+					<Button id="preView" onClick={goToCMS}>Back to Container Management</Button>
+				</div>
+				<h2 id="create-h2">Below is the Page You Have Created</h2>
+				<div id="page" className="container">
+					<h1 id="title">{t}</h1>
+					<h5 id="theDate">{d}</h5>
+					<div id="content" dangerouslySetInnerHTML={createMarkup(c)} />
+				</div>
 			</>
 		  );
 	}
@@ -40,7 +53,7 @@ export const buildPage = function(t, d, c){
 }
 /*
 <p dangerouslySetInnerHTML={createMarkup(c)} />
-
+<div dangerouslySetInnerHTML={createMarkup(todo.description)} />
 
 function createMarkup(desc) {
 		if(!desc){return}

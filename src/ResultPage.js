@@ -28,15 +28,9 @@ const ResultPage = () => {
 			setTodos(todos)
 		} catch (err) { console.log('error fetching todos') }
 	}
-	
-	function testRenders(){
-	  //console.log("testRenders");
-  }
-  testRenders()
   
   	function createMarkup(desc) {
 		if(!desc){return}
-		//console.log(desc);
 		return {__html: desc.replace(/(?:\r\n|\r|\n)/g, '<br>').substring(0, 100)+"..."}
 	}
 	
@@ -46,19 +40,10 @@ const ResultPage = () => {
 	}
 
 	function GoArticle(title, theDate, content){
-		//console.log("Got HERE")
 		if(!content){return}
-		//console.log("TITLE "+title)
-		//console.log("DATE "+formatDate(theDate))
-		//console.log("CONTENT "+content)
 		buildPage(title, formatDate(theDate), content)
-		console.log(content);
 	}
 	
-	
-  
-  
-
 	return (
 	<>
 		<div id="nav" className="container-fluid">
