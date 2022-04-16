@@ -123,18 +123,17 @@ const App = () => {
 	  <h3 id="instruct">~</h3>
 	<p id="input-cont">  
       <textarea
-	    rows="4"
 		cols="20"
         onChange={event => setInput('name', event.target.value)}
-        style={styles.input}
+		id="textAreaExample1"
+		className="form-control"
         value={formState.name}
         placeholder="Title"
       />
       <textarea
-	    rows="4"
 		cols="50"
         onChange={event => setInput('description', event.target.value)}
-        style={styles.input}
+        className="form-control"
         value={formState.description}
         placeholder="Content"
       />
