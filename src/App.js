@@ -47,7 +47,8 @@ const App = () => {
 	if(updating === true){
 		updating = false;
 		switchBack();
-	}  
+	}
+	setInput('description', document.getElementById("main-content").value)
     try {
       if (!formState.name || !formState.description) return
       const todo = { ...formState }
@@ -109,7 +110,21 @@ const App = () => {
 		var date = new Date(updatedAt);
 		return(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
 	}
-
+	/*
+	function getSelectedBold(){
+		let text = document.getElementById("main-content").innerHTML; 
+		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<b>"+window.getSelection().toString()+"</b>");
+		setInput('description', document.getElementById("main-content").value)
+	}
+	function getSelectedItalic(){
+		let text = document.getElementById("main-content").innerHTML; 
+		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<i>"+window.getSelection().toString()+"</i>");
+		setInput('description', document.getElementById("main-content").value)
+	}
+	function getSelectedLink(){
+		console.log(window.getSelection().toString());
+	}
+	*/
   return (
   <>
 	<div id="nav" className="container-fluid">
@@ -121,7 +136,7 @@ const App = () => {
     <div style={styles.container}>
       <h2 id="create-h2">Create Things</h2>
 	  <h3 id="instruct">~</h3>
-	<p id="input-cont">  
+	<div id="input-cont">  
       <textarea
 		cols="20"
         onChange={event => setInput('name', event.target.value)}
@@ -132,13 +147,19 @@ const App = () => {
       />
       <textarea
 		cols="50"
-        onChange={event => setInput('description', event.target.value)}
+		onChange={event => setInput('description', event.target.value)}
+		id="main-content"
         className="form-control"
         value={formState.description}
         placeholder="Content"
       />
-      <Button id="main-btn" className="btn btn-success" onClick={addTodo}>Create Something</Button>
-	 </p> 
+	 </div> 
+		<div className="row" id="btn-row">
+			<div className="col-sm-8" id="squeeze">
+				<button id="main-btn" type="button" className="btn btn-success" onClick={addTodo}>Create Article</button>
+			</div>
+			<div className="col-sm-4"></div>
+		</div>
       <Container>
 			  <Row xs={1} md={4} className="g-4">
 			  {
@@ -168,7 +189,7 @@ const App = () => {
 const styles = {
   //container: { width: "1500px", margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'left', padding: 20 },
   todo: {  marginBottom: 15 },
-  input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18, marginLeft: 5, marginRight: 5 },
+  //input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18, marginLeft: 5, marginRight: 5 },
   todoName: { fontSize: 20, fontWeight: 'bold' },
   todoDescription: { marginBottom: 10 },
   Button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 30px' }
