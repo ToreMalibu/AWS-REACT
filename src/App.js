@@ -154,12 +154,9 @@ const App = () => {
         placeholder="Content"
       />
 	 </div> 
-		<div className="row" id="btn-row">
-			<div className="col-sm-8" id="squeeze">
-				<button id="main-btn" type="button" className="btn btn-success" onClick={addTodo}>Create Article</button>
-			</div>
-			<div className="col-sm-4"></div>
-		</div>
+
+			<button id="main-btn" type="button" className="btn btn-success" onClick={addTodo}>Create Article</button>
+
       <Container>
 			  <Row xs={1} md={4} className="g-4">
 			  {
