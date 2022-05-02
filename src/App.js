@@ -114,21 +114,20 @@ const App = () => {
 		var date = new Date(updatedAt);
 		return(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
 	}
-	/*
+	
 	function getSelectedBold(){
-		let text = document.getElementById("main-content").innerHTML; 
+		let text = document.getElementById("main-content").value; 
 		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<b>"+window.getSelection().toString()+"</b>");
-		setInput('description', document.getElementById("main-content").value)
 	}
 	function getSelectedItalic(){
-		let text = document.getElementById("main-content").innerHTML; 
+		let text = document.getElementById("main-content").value; 
 		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<i>"+window.getSelection().toString()+"</i>");
-		setInput('description', document.getElementById("main-content").value)
 	}
 	function getSelectedLink(){
-		console.log(window.getSelection().toString());
+		let text = document.getElementById("main-content").value; 
+		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<a href='REPLACE THIS TEXT WITH YOUR LINK' target='blank'>"+window.getSelection().toString()+"</a> ~");
 	}
-	*/
+	
 	
 	return (
 		<>
@@ -158,6 +157,11 @@ const App = () => {
 
 			<button id="main-btn" type="button" className="btn btn-success" onClick={addTodo}>Create Article</button>
 			<Button id="update-btn" type="button" onClick={updateATodo}>Update Article</Button>
+			<div className="btn-group">
+				<button type="button" className="btn btn-primary" onClick={getSelectedBold}>B</button>
+				<button type="button" className="btn btn-primary" onClick={getSelectedItalic}>I</button>
+				<button type="button" className="btn btn-primary" onClick={getSelectedLink}>Link</button>
+			</div>
 
 			<Container>
 				<Row xs={1} md={4} className="g-4">
