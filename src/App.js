@@ -112,12 +112,14 @@ const App = () => {
 	
 	function formatDate(updatedAt){
 		var date = new Date(updatedAt);
-		return(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
+		return("Updated on "+((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + ' : ' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + ' : ' + date.getFullYear());
 	}
 	
 	function getSelectedBold(){
 		let text = document.getElementById("main-content").value; 
 		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<b>"+window.getSelection().toString()+"</b>");
+		//console.log("selectionStart = "+document.getElementById("main-content").selectionStart)
+		//console.log("selectionEnd = "+document.getElementById("main-content").selectionEnd)
 	}
 	function getSelectedItalic(){
 		let text = document.getElementById("main-content").value; 
