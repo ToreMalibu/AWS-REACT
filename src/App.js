@@ -51,6 +51,7 @@ const App = () => {
 				fetchTodos();
 				document.getElementById("title-content").value = "";
 				document.getElementById("main-content").value = "";
+				document.getElementById("result-area").innerHTML = "";
 		} catch (err) {
 			console.log('error creating todo:', err)
 		}
@@ -90,6 +91,8 @@ const App = () => {
 			document.getElementById("main-btn").style.display = 'inline-block';
 			document.getElementById("update-btn").style.display = 'none';
 			fetchTodos();
+			document.getElementById("result-area").innerHTML = "";
+			
 		} catch (err) {
 			console.log("error updating todo")
 		}
@@ -116,18 +119,67 @@ const App = () => {
 	}
 	
 	function getSelectedBold(){
-		let text = document.getElementById("main-content").value; 
-		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<b>"+window.getSelection().toString()+"</b>");
-		//console.log("selectionStart = "+document.getElementById("main-content").selectionStart)
-		//console.log("selectionEnd = "+document.getElementById("main-content").selectionEnd)
+		var start = 0, end = 0;
+		let el = document.getElementById("main-content");
+		if (el.selectionEnd > 0) {
+			let str = el.value;
+
+            start = el.selectionStart;
+            end = el.selectionEnd;
+			
+			let before = str.slice(0, start);
+			let after = str.slice(end, str.length);
+			let strSlice = str.slice(start, end);
+			let strReplace = strSlice.replace(strSlice, "<b>"+strSlice+"</b>");
+			let result = before+""+strReplace+""+after;
+			el.value = result;
+			
+			document.getElementById("result-area").innerHTML = result.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        } else{
+			alert("Please select the text you want to add formatting to - then click a formatting button");
+		}
 	}
 	function getSelectedItalic(){
-		let text = document.getElementById("main-content").value; 
-		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<i>"+window.getSelection().toString()+"</i>");
+		var start = 0, end = 0;
+		let el = document.getElementById("main-content");
+		if (el.selectionEnd > 0) {
+			let str = el.value;
+
+            start = el.selectionStart;
+            end = el.selectionEnd;
+			
+			let before = str.slice(0, start);
+			let after = str.slice(end, str.length);
+			let strSlice = str.slice(start, end);
+			let strReplace = strSlice.replace(strSlice, "<i>"+strSlice+"</i>");
+			let result = before+""+strReplace+""+after;
+			el.value = result;
+			
+			document.getElementById("result-area").innerHTML = result.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        } else{
+			alert("Please select the text you want to add formatting to - then click a formatting button");
+		}
 	}
 	function getSelectedLink(){
-		let text = document.getElementById("main-content").value; 
-		document.getElementById("main-content").value = text.replace(window.getSelection().toString(),"<a href='REPLACE THIS TEXT WITH YOUR LINK' target='blank'>"+window.getSelection().toString()+"</a> ~");
+		var start = 0, end = 0;
+		let el = document.getElementById("main-content");
+		if (el.selectionEnd > 0) {
+			let str = el.value;
+
+            start = el.selectionStart;
+            end = el.selectionEnd;
+			
+			let before = str.slice(0, start);
+			let after = str.slice(end, str.length);
+			let strSlice = str.slice(start, end);
+			let strReplace = strSlice.replace(strSlice, "<a href='REPLACE THIS TEXT WITH YOUR LINK' target='blank'>"+strSlice+"</a>");
+			let result = before+""+strReplace+""+after;
+			el.value = result;
+			
+			document.getElementById("result-area").innerHTML = result.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        } else{
+			alert("Please select the text you want to add formatting to - then click a formatting button");
+		}
 	}
 	
 	
@@ -164,7 +216,7 @@ const App = () => {
 				<button type="button" className="btn btn-primary" onClick={getSelectedItalic}>I</button>
 				<button type="button" className="btn btn-primary" onClick={getSelectedLink}>Link</button>
 			</div>
-
+			<div id="result-area"></div>
 			<Container>
 				<Row xs={1} md={4} className="g-4">
 					{
